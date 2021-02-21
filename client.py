@@ -1,69 +1,15 @@
-import websockets
-import asyncio
+import socket
+s = socket.socket(family=socket.AF_INET,type = socket.SOCK_STREAM)
+port = 8091
+s.connect(('0.0.0.0', port))
+s.send(b"12345")
+conn_tuple = s.getsockname()
+s.detach()
+s = socket.socket()
+s.bind(conn_tuple)
 
-def starter_func():
-    try:
-        asyncio.get_event_loop().run_until_complete(start())
-    except:
-        start()
-
-async def start():
-    uri = "ws://localhost:8080"
-    async with websockets.connect(uri) as ws:
-        await ws.send(input("<<"))
-        print(await ws.recv())
-        try:
-            while True:
-                await ws.send(input("<<"))
-                print(">>", await ws.recv())
-        except:
-            starter_func()
-
-#Initiating Client
-starter_func()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#!/usr/bin/env python3
-#
-# import socket
-#
-# HOST = '127.0.0.1'  # The server's hostname or IP address
-# PORT = 65432        # The port used by the server
-#
-# with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-#     s.connect((HOST, PORT))
-#     s.sendall(b'Hello, world')
-#     data = s.recv(1024)
-#
-# print('Received', repr(data))
+while True:
+    s.accept()
+    x = s.recv(1024)
+    if x.decode("utf-8") == b"":
+        print(x)

@@ -1,18 +1,21 @@
-import asyncio
-import websockets
-async def hello():
-    uri = "ws://localhost:8765"
-    async with websockets.connect(uri) as ws:
-        greeting = await ws.recv()
-        print(f"< {greeting}")
+# import json
+#
+# #open and read
+# x = open("clients.json","r")
+# x = x.read()
+# #convert to dict
+# js = json.loads(x)
+# #some changes
+# js[12345]='nekjj2'
+# #convert to json
+# js = json.dumps(js)
+# #write to file
+# x = open("clients.json","w")
+# x.write(js)
 
-async def reg_req():
-    uri = "ws://localhost:8765"
-    async with websockets.connect(uri) as ws:
-        await ws.send("Admin")
-        mssg = await ws.recv()
-        print(mssg)
+import socket
 
-asyncio.get_event_loop().run_until_complete(reg_req())
-asyncio.get_event_loop().run_until_complete(hello())
-asyncio.get_event_loop().run_forever()
+s = socket.socket(family=socket.AF_UNIX, type=socket.SOCK_STREAM, proto=0)
+x = enco
+print(s)
+
